@@ -1,1 +1,36 @@
+# Environment variables
 .env
+.env.*
+!.env.example
+
+# Air live-reload build output
+tmp/
+build-errors.log
+
+# Go build output
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+main
+
+# Go test & coverage
+*.test
+*.out
+coverage.html
+coverage.txt
+
+# Go workspace
+go.work
+go.work.sum
+
+# OS artifacts
+.DS_Store
+Thumbs.db
+
+# Editor/IDE
+.idea/
+.vscode/
+*.swp
+*.swo
