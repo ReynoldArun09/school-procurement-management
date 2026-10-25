@@ -16,13 +16,14 @@ import (
 
 func NewMySQL(ctx context.Context, cfg config.MysqlConfig, logger *slog.Logger) (*gorm.DB, error) {
 	mysqlConfig := mysqlDriver.Config{
-		User:      cfg.User,
-		Passwd:    cfg.Password,
-		Net:       "tcp",
-		Addr:      net.JoinHostPort(cfg.Host, cfg.Port),
-		DBName:    cfg.Database,
-		ParseTime: true,
-		Loc:       time.UTC,
+		User:                 cfg.User,
+		Passwd:               cfg.Password,
+		Net:                  "tcp",
+		Addr:                 net.JoinHostPort(cfg.Host, cfg.Port),
+		DBName:               cfg.Database,
+		ParseTime:            true,
+		Loc:                  time.UTC,
+		AllowNativePasswords: true,
 	}
 	dsn := mysqlConfig.FormatDSN()
 

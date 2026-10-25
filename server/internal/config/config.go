@@ -28,7 +28,7 @@ type MysqlConfig struct {
 func Load() (*Config, error) {
 	cfg := &Config{
 		AppEnv: getEnv("APP_ENV", "development"),
-		Port:   getEnv("MYSQL_PORT", "8080"),
+		Port:   getEnv("PORT", "8080"),
 		Mysql: MysqlConfig{
 			Host:            getEnv("MYSQL_HOST", "127.0.0.1"),
 			Port:            getEnv("MYSQL_PORT", "3306"),
@@ -58,22 +58,11 @@ func Load() (*Config, error) {
 	}
 
 	if cfg.Mysql.Database == "" {
-		return nil, fmt.Errorf("MYSQL_USER is required")
+		return nil, fmt.Errorf("MYSQL_DATABASE is required")
 	}
 
 	if cfg.Mysql.User == "" {
 		return nil, fmt.Errorf("MYSQL_USER is required")
-	}
-
-	if cfg.Mysql.MaxOpenConns < 1 {
-		return nil, fmt.Errorf("MaxOpenConns must be greater than zero")
-	}
-
-	if cfg.Mysql.MaxIdleConns < 0 ||
-		cfg.Mysql.MaxIdleConns > cfg.Mysql.MaxOpenConns {
-		return nil, fmt.Errorf(
-			"MaxIdleConns must be between zero and MaxOpenConns",
-		)
 	}
 
 	if cfg.Mysql.MaxOpenConns < 1 {
