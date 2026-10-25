@@ -15,6 +15,7 @@ import (
 	"github.com/ReynoldArun09/school-procurement-management/internal/httpserver"
 	"github.com/ReynoldArun09/school-procurement-management/internal/logger"
 	"github.com/ReynoldArun09/school-procurement-management/internal/models"
+	"github.com/ReynoldArun09/school-procurement-management/internal/routes"
 	"github.com/joho/godotenv"
 )
 
@@ -62,6 +63,8 @@ func main() {
 
 	// 5. Initialize the HTTP router.
 	mux := http.NewServeMux()
+
+	routes.RegisterAcademicYearRoutes(mux, db)
 
 	// 6. Initialize the HTTP server.
 	server := httpserver.New(httpserver.Config{
