@@ -14,6 +14,7 @@ import (
 	"github.com/ReynoldArun09/school-procurement-management/internal/database"
 	"github.com/ReynoldArun09/school-procurement-management/internal/httpserver"
 	"github.com/ReynoldArun09/school-procurement-management/internal/logger"
+	"github.com/ReynoldArun09/school-procurement-management/internal/models"
 	"github.com/joho/godotenv"
 )
 
@@ -38,6 +39,10 @@ func main() {
 	// 4. Initialize mysql.
 
 	db, err := database.NewMySQL(ctx, cfg.Mysql, appLogger)
+
+	if err := db.AutoMigrate(&models.Admin{}, &models.AcademicYear{}); err != nil {
+		appLogger.Error("auto-migrate database models", "error", err)
+	}
 
 	if err != nil {
 		appLogger.Error("database intialization failed", "error", err)
