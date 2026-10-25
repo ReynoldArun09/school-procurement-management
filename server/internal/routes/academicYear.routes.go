@@ -15,5 +15,5 @@ func RegisterAcademicYearRoutes(mux *http.ServeMux, db *gorm.DB) {
 	academicYearService := services.NewService(academicYearRepo)
 	academicYearHandler := handlers.NewHandler(academicYearService)
 
-	mux.HandleFunc("POST /create-academic-year", academicYearHandler.Create)
+	mux.HandleFunc("POST /admin/academic-years/create", academicYearHandler.Create)
 }
