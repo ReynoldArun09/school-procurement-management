@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/ReynoldArun09/school-procurement-management/internal/services"
+	"github.com/ReynoldArun09/school-procurement-management/internal/utils"
 )
 
 type Handler struct {
@@ -28,10 +29,14 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	year, err := h.service.Create(r.Context(), input)
 
 	if err != nil {
-		http.Error(w, "failed to create user", http.StatusInternalServerError)
+		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
 
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(year)
+	json.NewEncoder(w).Encode(utils.ApiResponse{
+		Message:    "Academic Year created",
+		StatusCode: http.StatusCreated,
+		Data:       year,
+	})
 }

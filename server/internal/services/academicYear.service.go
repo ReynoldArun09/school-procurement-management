@@ -51,6 +51,9 @@ func (s *Service) Create(ctx context.Context, input CreateInput) (*models.Academ
 	}
 
 	if err := s.repo.Create(ctx, Newyear); err != nil {
+		if strings.Contains(err.Error(), "Duplicate entry") {
+			return nil, fmt.Errorf("%w: Academic year already exists", ErrInvalidInput)
+		}
 		return nil, err
 	}
 
