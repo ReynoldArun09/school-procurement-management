@@ -41,13 +41,13 @@ func main() {
 
 	db, err := database.NewMySQL(ctx, cfg.Mysql, appLogger)
 
-	if err := db.AutoMigrate(&models.Admin{}, &models.AcademicYear{}); err != nil {
-		appLogger.Error("auto-migrate database models", "error", err)
-	}
-
 	if err != nil {
 		appLogger.Error("database intialization failed", "error", err)
 		os.Exit(1)
+	}
+
+	if err := db.AutoMigrate(&models.Admin{}, &models.AcademicYear{}, &models.Brand{}, &models.Category{}, &models.Unit{}); err != nil {
+		appLogger.Error("auto-migrate database models", "error", err)
 	}
 
 	sqlDB, err := db.DB()
