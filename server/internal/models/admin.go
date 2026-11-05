@@ -10,6 +10,7 @@ type Admin struct {
 	Password      string    `gorm:"not null" json:"-"`
 	Image         *string   `json:"image,omitempty"`
 	RememberToken *string   `json:"remember_token,omitempty"`
+	IsActive      bool      `gorm:"not null;default:true" json:"is_active"`
 	CreatedAt     time.Time `json:"created_at"`
 	UpdatedAt     time.Time `json:"updated_at"`
 }
